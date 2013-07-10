@@ -14,11 +14,6 @@ for ti = 1:L
         else
             ds(ti,ni+1) = (trace(cov(data(ti:ti+ni,:)))/dim).^0.5;
         end
-%        tj = ti+ni+1;
-%         for nj = 0:L-tj
-%             d = max(abs(mean(data(ti:ti+ni,:))-mean(data(tj:tj+nj,:))));
-%             dd(ti,ni+1,nj+1) = d;
-%         end
         if ti==1
             S(ti,ni+1) = ds(ti,ni+1);%dn(ti,ni+1);
             D(ti,ni+1) = 0;
@@ -39,7 +34,7 @@ for ti = 1:L
             dd = max(abs(v1-v2));
             local_cost2 = D(ti,ni+1)+dd;
             n = N(ti,ni+1)+1;
-            tmp_global_cost = exp(alpha*local_cost1/n)*exp(-beta*local_cost2/n) ...
+            tmp_global_cost = alpha*local_cost1/n-beta*local_cost2/(n-1) ...
                 + gamma*n;
             if G(tj,nj+1)>tmp_global_cost
                 P(tj,nj+1).t = ti;
