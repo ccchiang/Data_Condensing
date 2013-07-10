@@ -1,4 +1,4 @@
-function [ds dn dd D S G N] = Condense(data)
+function [S G] = Condense(data)
 L =  size(data, 1);
 dim = size(data, 2);
 ds = zeros(L, L);
@@ -37,7 +37,7 @@ for ti = 1:L
             tmp_global_cost = (D(ti,ni+1)+local_cost)/(N(ti,ni+1)+1)+0.01*(N(ti,ni+1)+1);
             if G(tj,nj+1)>tmp_global_cost
                 S(tj,nj+1).t = ti;
-                S(tj,nj+1).n = ni+1;
+                S(tj,nj+1).n = ni;
                 D(tj,nj+1) = D(ti,ni+1)+local_cost;
                 G(tj,nj+1) = tmp_global_cost;
                 N(tj,nj+1) = N(ti,ni+1)+1;
